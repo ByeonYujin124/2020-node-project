@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("../header"); %>
+  <!--include하고자 하는 파일 명을 적으면 그 파일을 가져와서 사용할 수 있어!-->
+  <body>
+    <%- include("../menu"); %>
+
+    <!-- Material input -->
+    <div class="md-form">
+      <input
+        type="text"
+        id="singer"
+        class="form-control"
+        value="<%=result.singer%>"
+        readonly
+      />
+    </div>
+    <div class="md-form">
+      <input
+        type="text"
+        id="title"
+        class="form-control"
+        value="<%=result.title%>"
+        readonly
+      />
+    </div>
+    <button onclick="location.href='/api/music'" class="btn btn-secondary">
+      목록
+    </button>
+    <button
+      onclick="location.href='/api/music/<%=result._id%>/edit'"
+      class="btn btn-secondary"
+    >
+      수정
+    </button>
+    <button id="deleteBtn" class="btn btn-secondary">삭제</button>
+    <%-include("../footer");%>
+
+    <script>
+      $(function () {
+        $("#deleteBtn").on("click", () => {
+          //click을 하면 ()를 해라
+          const result = confirm("삭제하시겠습니까?");
+          if (result) {
+            //삭제하겠다고 하면
+
+            $.ajax({
+              url: "/api/music/<%=result._id%>",
+              type: "DELETE", //delete메소드로 위에 꺼 호출함
+            })
+              .done(() => {
+                location.href = "/api/music/"; //상세조회로 이동
+              })
+              .fail((request, status, error) => {
+                alert(request.responseText);
+              });
+          } else {
+            console.log("삭제 취소");
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

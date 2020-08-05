@@ -1,0 +1,37 @@
+1.
+Server : mongod --dbpath=data
+Client : mongo
+
+
+2.
+database ) collection ) Document
+
+database(test)안에 여러 개의 colloction(music)이 들어가고 그 안에 여러 document({singer:IU, title:~}) 가 들어감
+collection == rdb에서의 table
+
+
+
+3. mongoDB shell command
+
+1)database
+-db //current db를 보여줌
+-use "db명" //다른 db를 사용함
+-show dbs //db 모두 보여줌
+
+2)collection
+-db.createCollection("컬렉션명")
+-show collections
+-db.music.drop() // 삭제 
+
+3)Document
+-db.music.insert({singer : "IU}) //document 생성
+-db.music.find().pretty() // document를 예쁘게 보여줌
+-db.music.find({조회조건 singer :"IU"}).limit(건수)
+-db.music.fint({}, {_id: 0, singer:1, ...}) // id는 안 보이게 singer는 보이게
+-db.music.update({조회조건}, {수정내용})
+-db.music.update({조회조건},{&set: {필드:값}}) // 필드만 update됨
+-db.music.remove({}) //전체삭제
+-db.music.remove({삭제조건})
+-db.dropDatabase() //db 날아감
+
+5. ODM (Object Docuent Mapping) 도구 : mongoose

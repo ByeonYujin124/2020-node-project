@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("../header"); %>
+  <!--include하고자 하는 파일 명을 적으면 그 파일을 가져와서 사용할 수 있어!-->
+  <body>
+    <%- include("../menu"); %>
+    <!--목록조회-->
+    <button
+      type="button"
+      class="btn btn-secondary"
+      onclick="location.href='/api/movie/new'"
+    >
+      Create
+    </button>
+
+    <div class="row row-cols-1 row-cols-md-3">
+      <% result.forEach(movie => { %>
+      <div class="col mb-4">
+        <!-- Card -->
+        <div class="card">
+          <!--Card image-->
+          <div class="view overlay">
+            <img
+              class="card-img-top"
+              src="https://mdbootstrap.com/img/Photos/Others/images/16.jpg"
+              alt="Card image cap"
+            />
+            <a href="#!">
+              <div class="mask rgba-white-slight"></div>
+            </a>
+          </div>
+
+          <!--Card content-->
+          <div class="card-body">
+            <!--Title-->
+            <h4 class="card-title"><%=movie.title%></h4>
+            <!--Text-->
+            <p class="card-text"><%=movie.director%><br /><%=movie.year%></p>
+            <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+            <button
+              type="button"
+              class="btn btn-light-blue btn-md"
+              onclick="location.href='/api/movie/<%=movie._id%>'"
+            >
+              Read more
+            </button>
+          </div>
+        </div>
+        <!-- Card -->
+      </div>
+      <%}); %>
+    </div>
+    <%-include("../footer");%>
+  </body>
+</html>
